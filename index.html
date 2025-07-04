@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Est-ce l'heure du Pastis ?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(45deg, #f9d423, #ff4e50);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #fff;
+      text-align: center;
+    }
+    h1 {
+      font-size: 4em;
+      margin: 0;
+    }
+    p {
+      font-size: 2em;
+      margin: 10px 0 0 0;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1 id="answer">Est-ce l'heure du pastis ?</h1>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const now = new Date();
+    const hour = now.getHours();
+    let message = "";
+
+    if (hour < 11) {
+      message = "Pas encore l'heure du pastaga, mate ta saga !";
+    } else if (hour >= 11 && hour < 13) {
+      message = "Oh hé ! C'est l'heure du pastis, mon p'tit fils !";
+    } else if (hour >= 13 && hour < 17) {
+      message = "T'as bien mangé, digère peinard… Pastis plus tard !";
+    } else if (hour >= 17 && hour < 18) {
+      message = "Officiellement pas vraiment, mais franchement c'est tout comme ";
+    } else if (hour >= 18 && hour < 21) {
+      message = "Hop hop hop ! Lève ton verre, pastis sévère !";
+    } else {
+      message = "Trop tard pour le pastis… finis ton anis !";
+    }
+
+    document.getElementById("message").textContent = message;
+  </script>
+</body>
+</html>
