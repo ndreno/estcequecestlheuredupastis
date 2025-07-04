@@ -72,17 +72,24 @@
     document.getElementById("minuteMessage").textContent = minuteMessage;
 
     // API météo Open-Meteo - Marseille
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=43.2965&longitude=5.3698&current_weather=true")
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=43.3&longitude=5.369999&current_weather=true")
       .then(response => response.json())
       .then(data => {
-        const weatherCode = data.current?.weather_code;
+        const weather = data.current_weather;
+        if (!weather) return;
+
+        const weatherCode = weather.weathercode;
+        const temperature = weather.temperature;
         let weatherMessage = "";
 
+        // WMO codes: 0 = clear sky, 1 = mainly clear
         if (weatherCode === 0 || weatherCode === 1) {
-          weatherMessage = "Pastis par temps bleu, pastis délicieux !";
-          document.getElementById("weatherMessage").textContent = weatherMessage;
+          weatherMessage = `Pastis par temps bleu, pastis délicieux ! Il fait ${temperature}°C à Marseille.`;
+        } else {
+          weatherMessage = `Le ciel fait la tête, mais pastis en fête ! Il fait ${temperature}°C à Marseille.`;
         }
-        // Sinon, ne rien afficher
+
+        document.getElementById("weatherMessage").textContent = weatherMessage;
       })
       .catch(error => {
         console.error("Erreur météo:", error);
