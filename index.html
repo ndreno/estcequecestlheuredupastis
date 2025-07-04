@@ -56,16 +56,16 @@
       message = "Trop tard pour le pastis… finis ton anis !";
     }
 
+    const hourDisplay = `${hour}h`;
     let minuteMessage = "";
-
     if (minute === 10) {
-      minuteMessage = "et dix, pastis exquis !";
+      minuteMessage = `${hourDisplay}10, pastis propice !`;
     } else if (minute === 15) {
-      minuteMessage = "et quart, l'heure du Ricard !";
+      minuteMessage = `${hourDisplay} et quart, l'heure du Ricard !`;
     } else if (minute === 30) {
-      minuteMessage = "et demi, pastis aussi !";
+      minuteMessage = `${hourDisplay} et demi, pastis aussi !`;
     } else if (minute === 45) {
-      minuteMessage = "moins le quart, pastis peinard !";
+      minuteMessage = `${hourDisplay} moins le quart, pastis traquenard !`;
     }
 
     document.getElementById("message").textContent = message;
