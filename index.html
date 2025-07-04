@@ -31,11 +31,15 @@
   <div>
     <h1 id="answer">Est-ce l'heure du pastis ?</h1>
     <p id="message"></p>
+    <p id="minuteMessage"></p>
+    <p id="weatherMessage"></p>
   </div>
 
   <script>
     const now = new Date();
     const hour = now.getHours();
+    const minute = now.getMinutes();
+
     let message = "";
 
     if (hour < 11) {
@@ -45,14 +49,45 @@
     } else if (hour >= 13 && hour < 17) {
       message = "T'as bien mangé, digère peinard… Pastis plus tard !";
     } else if (hour >= 17 && hour < 18) {
-      message = "Officiellement pas vraiment, mais franchement c'est tout comme ";
+      message = "Officiellement pas vraiment, mais franchement c'est tout comme !";
     } else if (hour >= 18 && hour < 21) {
       message = "Hop hop hop ! Lève ton verre, pastis sévère !";
     } else {
       message = "Trop tard pour le pastis… finis ton anis !";
     }
 
+    let minuteMessage = "";
+
+    if (minute === 10) {
+      minuteMessage = "et dix, pastis exquis !";
+    } else if (minute === 15) {
+      minuteMessage = "et quart, l'heure du Ricard !";
+    } else if (minute === 30) {
+      minuteMessage = "et demi, pastis aussi !";
+    } else if (minute === 45) {
+      minuteMessage = "moins le quart, pastis peinard !";
+    }
+
     document.getElementById("message").textContent = message;
+    document.getElementById("minuteMessage").textContent = minuteMessage;
+
+    // API météo Open-Meteo - Marseille
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=43.2965&longitude=5.3698&current=weather")
+      .then(response => response.json())
+      .then(data => {
+        const weatherCode = data.current?.weather_code;
+        let weatherMessage = "";
+
+        if (weatherCode === 0 || weatherCode === 1) {
+          weatherMessage = "Pastis par temps bleu, pastis délicieux !";
+          document.getElementById("weatherMessage").textContent = weatherMessage;
+        }
+        // Sinon, ne rien afficher
+      })
+      .catch(error => {
+        console.error("Erreur météo:", error);
+        // Ne rien afficher si l'appel échoue
+      });
   </script>
 </body>
 </html>
